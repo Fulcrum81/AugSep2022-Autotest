@@ -1,5 +1,6 @@
-package mavenizer.staticPO;
+package mavenizer;
 
+import mavenizer.helpers.Browser;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;

@@ -1,4 +1,4 @@
-package mavenizer.staticPO;
+package mavenizer.helpers;
 
 public enum Browser {
     CHROME("chrome"),

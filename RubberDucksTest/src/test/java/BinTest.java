@@ -1,5 +1,5 @@
 import mavenizer.staticPO.CataloguePage;
-import mavenizer.staticPO.TestBase;
+import mavenizer.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
