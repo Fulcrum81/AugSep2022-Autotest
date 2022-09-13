@@ -14,13 +14,6 @@
         <selenium.version>4.4.0</selenium.version>
     </properties>
     <build>
-        <testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
-        <sourceDirectory>${project.basedir}/src/test/java/resources</sourceDirectory>
-        <testResources>
-            <testResource>
-                <directory>${project.basedir}/src/test/resources</directory>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
