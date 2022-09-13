@@ -1,13 +1,15 @@
-import mavenizer.staticPO.CataloguePage;
 import mavenizer.TestBase;
+import mavenizer.staticPO.CataloguePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static mavenizer.helpers.Ducks.*;
+
 public class BinTest extends TestBase {
     @Test
-    public void cartAmountTestNoMatterOfCurrency() {
-        Assert.assertEquals(CataloguePage.getCartAmountOnRightTopCorner(driver).replace("$", "").
-                replace("€", "").trim(), "0");
+    public void testTenDucksAddExample() throws InterruptedException {
+        CataloguePage.addDucksToCart(driver, BLUE, "10");
+        Assert.assertEquals(CataloguePage.getCartQuantityOnRightTopCorner(driver).strip(), "10");
     }
 
 }
