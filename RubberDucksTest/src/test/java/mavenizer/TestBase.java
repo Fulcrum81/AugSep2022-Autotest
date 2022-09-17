@@ -8,6 +8,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.time.Duration;
+
 public class TestBase {
     protected WebDriver driver;
 
@@ -30,12 +32,12 @@ public class TestBase {
                 driver = new ChromeDriver();
                 break;
         }
-        driver.manage().window().fullscreen();
         driver.get(baseURL);
+        driver.manage().window().maximize();
     }
 
     @AfterMethod
     public void teardown() {
-        driver.quit();
+       driver.quit();
     }
 }
