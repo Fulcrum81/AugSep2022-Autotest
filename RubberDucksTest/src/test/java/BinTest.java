@@ -2,9 +2,12 @@ import mavenizer.TestBase;
 import mavenizer.staticPO.CartPage;
 import mavenizer.staticPO.CataloguePage;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.List;
 
 import static mavenizer.helpers.Ducks.*;
@@ -14,7 +17,7 @@ public class BinTest extends TestBase {
      * Test case #4
      */
     @Test
-    public void serialRemoveAllCategoriesTest() throws InterruptedException {
+    public void serialRemoveAllCategoriesTest() {
         int categoriesInBinCount = 0;
 
         CataloguePage.addDucksToCart(driver, PURPLE, "3");
@@ -36,10 +39,15 @@ public class BinTest extends TestBase {
                 Assert.assertEquals(shortCutsLinksList.size(), i);
                 Assert.assertEquals(CartPage.getOrderSummaryTable(driver).getOrderSummaryRecords().size(), i);
             }
-            Thread.sleep(800);
+
+            new WebDriverWait(driver, Duration.ofSeconds(2))
+                    .until(ExpectedConditions.jsReturnsValue("return jQuery.active == 0"));
 
             CartPage.getRemoveButtonByIndex(driver, i).click();
-            Thread.sleep(800);
+
+            new WebDriverWait(driver, Duration.ofSeconds(2))
+                    .until(ExpectedConditions.jsReturnsValue("return jQuery.active == 0"));
+
             shortCutsLinksList = CartPage.getCategoriesLiList(driver); //Reload links after remove
         }
         Assert.assertEquals(shortCutsLinksList.size(), 0);
@@ -50,12 +58,12 @@ public class BinTest extends TestBase {
     }
 
     /**
-     * Just a showcase to table mapper to reuse at testcases. No asserts
+     * Just a showcase to table mapper. No asserts yet
      *
-     * @throws InterruptedException
+     *
      */
     @Test
-    public void tableTest() throws InterruptedException {
+    public void tableTest() {
         CataloguePage.addDucksToCart(driver, YELLOW, "8");
         CataloguePage.goToCartPage(driver);
         CataloguePage.addDucksToCart(driver, RED, "12");

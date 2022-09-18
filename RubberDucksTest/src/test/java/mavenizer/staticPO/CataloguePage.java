@@ -3,6 +3,10 @@ package mavenizer.staticPO;
 import mavenizer.helpers.Ducks;
 import mavenizer.helpers.LocatorHelper;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class CataloguePage {
     public static String getCartQuantityOnRightTopCorner(WebDriver driver) {
@@ -17,7 +21,7 @@ public class CataloguePage {
         driver.findElement(LocatorHelper.getLocator("CataloguePage.cartLink")).click();
     }
 
-    public static void addDucksToCart(WebDriver driver, Ducks duckType, String ducksQuantity) throws InterruptedException {
+    public static void addDucksToCart(WebDriver driver, Ducks duckType, String ducksQuantity) {
         switch (duckType) {
             case RED:
                 driver.get("https://litecart.stqa.ru/en/rubber-ducks-c-1/");
@@ -42,11 +46,13 @@ public class CataloguePage {
         }
         driver.findElement(LocatorHelper.getLocator("CataloguePage.addToCartInputQuantity")).clear();
         driver.findElement(LocatorHelper.getLocator("CataloguePage.addToCartInputQuantity")).sendKeys(ducksQuantity);
-        if (duckType==Ducks.YELLOW){ //Fill size
+        if (duckType == Ducks.YELLOW) { //Fill size
             driver.findElement(LocatorHelper.getLocator("CataloguePage.yellowDuckSizeCombo")).sendKeys("Small");
         }
         driver.findElement(LocatorHelper.getLocator("CataloguePage.addToCartButton")).click();
-        Thread.sleep(1500); //ajax call wait only method :(
+
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.presenceOfElementLocated(LocatorHelper.getLocator("CataloguePage.cartAmountStyle")));
     }
 
 }
