@@ -2,7 +2,7 @@ package mavenizer.helpers;
 
 import org.openqa.selenium.By;
 
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -14,7 +14,7 @@ public class LocatorHelper {
         InputStream is = LocatorHelper.class.getResourceAsStream("/mavenizer.properties");
         try {
             locators.load(is);
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error reading from properties file");
         }
     }
