@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class ZarytskiTest extends TestBase {
+    //add tests
     @Test
     public void checkAddOneElementToBin() throws Exception {
 
