@@ -1,16 +1,17 @@
 package mavenizer.staticPO;
 
+import mavenizer.helpers.LocatorHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class TablesPage {
-    CartPageTable example1;
-    CartPageTable example2;
+    public CartPageTable example1;
+
 
     WebDriver driver;
     public TablesPage(WebDriver driver) {
         this.driver = driver;
-        example1 = new CartPageTable (driver.findElement(By.xpath("//div[@id='box-checkout-summary']//tbody")));
+        example1 = new CartPageTable (driver.findElement(LocatorHelper.getLocator("CartPage.tableOrderSummary")));
     }
 
 

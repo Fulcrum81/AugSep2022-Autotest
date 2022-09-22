@@ -3,6 +3,7 @@ package mavenizer.staticPO;
 import mavenizer.helpers.Zarytski.Builder;
 import mavenizer.helpers.LocatorHelper;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class CartPage {
     public static void reduceTheAmountToOne(WebDriver driver) {
@@ -21,4 +22,8 @@ public class CartPage {
         driver.findElement(LocatorHelper.getLocator("CartPage.quantityOfElements")).sendKeys("5");
         driver.findElement(LocatorHelper.getLocator("CartPage.buttonUpdate")).click();
     }
+
+   public static void removeElement(WebDriver driver) {
+        driver.findElement(LocatorHelper.getLocator("CartPage.buttonRemove")).click();
+   }
 }

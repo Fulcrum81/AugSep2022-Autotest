@@ -30,6 +30,16 @@ public class Waits {
         wait.until(ExpectedConditions.textToBe((LocatorHelper.getLocator(locator)),  value));
     }
 
+    public static void explicitWaitNumberOfElementsToBe(WebDriver driver, String locator, int value) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.numberOfElementsToBe((LocatorHelper.getLocator(locator)),  value));
+    }
+
+    public static void testic(WebDriver driver, String locator ) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(LocatorHelper.getLocator(locator)));
+
+    }
 
 
 }
