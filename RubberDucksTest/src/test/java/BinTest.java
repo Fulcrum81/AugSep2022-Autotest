@@ -1,3 +1,4 @@
+import io.qameta.allure.Description;
 import mavenizer.TestBase;
 import mavenizer.staticPO.CartPage;
 import mavenizer.staticPO.CataloguePage;
@@ -16,10 +17,12 @@ public class BinTest extends TestBase {
     /**
      * Test case #4
      */
+    @Description("Method adds categories(3) of ducks(3) to bin. Then removes it step by step " +
+            "by clicking shortcut button. Checks " +
+            "amounts in bin and order table for every step.")
     @Test
     public void serialRemoveAllCategoriesTest() {
         int categoriesInBinCount = 0;
-
         CataloguePage.addDucksToCart(driver, PURPLE, "3");
         categoriesInBinCount++;
         CataloguePage.addDucksToCart(driver, YELLOW, "3");
@@ -59,15 +62,14 @@ public class BinTest extends TestBase {
 
     /**
      * Just a showcase to table mapper. No asserts yet
-     *
-     *
      */
     @Test
     public void tableTest() {
         CataloguePage.addDucksToCart(driver, YELLOW, "8");
         CataloguePage.goToCartPage(driver);
+        System.out.println(CartPage.getOrderSummaryTable(driver)); //Checking what happens after first add method
         CataloguePage.addDucksToCart(driver, RED, "12");
         CataloguePage.goToCartPage(driver);
-        System.out.println(CartPage.getOrderSummaryTable(driver));
+        System.out.println(CartPage.getOrderSummaryTable(driver)); //Checking what happens after second add method
     }
 }

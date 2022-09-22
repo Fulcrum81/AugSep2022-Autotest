@@ -1,5 +1,6 @@
 package mavenizer.staticPO;
 
+import io.qameta.allure.Step;
 import mavenizer.helpers.LocatorHelper;
 import mavenizer.helpers.OrderSummaryRecord;
 import mavenizer.helpers.OrderSummaryTableMapper;
@@ -11,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class CartPage {
+    @Step("Return links to all categories in the bin")
     public static List<WebElement> getCategoriesLiList(WebDriver driver) {
         try {
             return driver.findElements(LocatorHelper.getLocator("CartPage.categoriesLinksList"));
@@ -20,6 +22,7 @@ public class CartPage {
         return null;
     }
 
+    @Step("Return 'Remove button' by index in the bin")
     public static WebElement getRemoveButtonByIndex(WebDriver driver, int shortCutIndex) {
         StringBuilder sb = new StringBuilder();
         sb.append("ul>li:nth-child(");
@@ -28,6 +31,7 @@ public class CartPage {
         return driver.findElement(By.cssSelector(sb.toString()));
     }
 
+    @Step("Return wrapper object for order summary table")
     public static OrderSummaryTableMapper getOrderSummaryTable(WebDriver driver) {
         List<WebElement> rows = driver.findElements(LocatorHelper.getLocator("CartPage.dataTableRowsWithoutHeader"));
         OrderSummaryTableMapper table = new OrderSummaryTableMapper();
@@ -51,6 +55,7 @@ public class CartPage {
         return table;
     }
 
+    @Step("Return empty bin message")
     public static String getEmptyBinMessage(WebDriver driver) {
         return driver.findElement(LocatorHelper.getLocator("CartPage.emptyBinMessage")).getText();
     }

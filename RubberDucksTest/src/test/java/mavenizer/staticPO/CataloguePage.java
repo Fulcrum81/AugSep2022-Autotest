@@ -1,5 +1,6 @@
 package mavenizer.staticPO;
 
+import io.qameta.allure.Step;
 import mavenizer.helpers.Ducks;
 import mavenizer.helpers.LocatorHelper;
 import org.openqa.selenium.WebDriver;
@@ -9,18 +10,22 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class CataloguePage {
+    @Step("Return amount of ducks in the bin with currency sign")
     public static String getCartQuantityOnRightTopCorner(WebDriver driver) {
         return driver.findElement(LocatorHelper.getLocator("CataloguePage.cartQuantity")).getText();
     }
 
+    @Step("Return amount of ducks in the bin")
     public static String getCartAmountOnRightTopCorner(WebDriver driver) {
         return driver.findElement(LocatorHelper.getLocator("CataloguePage.cartAmount")).getText();
     }
 
+    @Step("Navigate to bin page")
     public static void goToCartPage(WebDriver driver) {
         driver.findElement(LocatorHelper.getLocator("CataloguePage.cartLink")).click();
     }
 
+    @Step("Add some amount some category of ducks")
     public static void addDucksToCart(WebDriver driver, Ducks duckType, String ducksQuantity) {
         switch (duckType) {
             case RED:
