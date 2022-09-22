@@ -1,1 +1,0 @@
-{"uuid":"fcbfac45-2656-4019-b076-bcf5667c9937","name":"mavenizer.TestBase.setup","children":["d3e1baa6-0359-4a43-b1aa-3b1b26617064"],"description":"","befores":[{"name":"setup","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1663850295946,"stop":1663850314535}],"afters":[],"start":1663850295945,"stop":1663850314556}

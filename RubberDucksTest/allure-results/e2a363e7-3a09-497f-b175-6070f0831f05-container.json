@@ -1,1 +1,0 @@
-{"uuid":"e2a363e7-3a09-497f-b175-6070f0831f05","name":"mavenizer.TestBase.teardown","children":["17dbc92d-784e-4e74-a72d-2962532cbd21"],"description":"","befores":[],"afters":[{"name":"teardown","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1663849920887,"stop":1663849921791}],"start":1663849920887,"stop":1663849921791}
