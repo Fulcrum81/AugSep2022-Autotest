@@ -1,5 +1,6 @@
 package mavenizer.objectPO;
 
+import mavenizer.helpers.LocatorHelper;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
@@ -38,6 +39,23 @@ public class LoginTest extends TestBaseLogin {
         softAssert.assertAll();
     }
 
+    @Test (dataProvider = "ValidCredentials", dataProviderClass = DataProviders.class)
+    public void logInWithRememberMeTest(String email, String password) {
+        LogInForm login = new LogInForm(driver);
+        driver.get(login.URL_MAIN_PAGE);
+        driver.findElement(login.rememberMeButton).click();
+        login.attemptToLogIn(email, password);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(login.resultMessageSuccess))
+                        .getText().contains(login.expectedResultMessageSuccessText),
+                "Text message about success authorization is wrong");
+        softAssert.assertTrue(wait.until(ExpectedConditions
+                        .visibilityOfElementLocated(login.sectionAccountForLoggedUser)).isDisplayed(),
+                "Section Account is not displayed");
+        softAssert.assertAll();
+
+    }
 
 
 

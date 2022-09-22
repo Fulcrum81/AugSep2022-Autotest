@@ -1,5 +1,6 @@
 package mavenizer.objectPO;
 
+import mavenizer.helpers.LocatorHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,10 +17,10 @@ public class LogInForm {
     public By buttonLogIn = By.cssSelector("#box-account-login button[name='login']");
     public By sectionAccountForLoggedUser = By.cssSelector("#box-account");
     public By resultMessageSuccess = By.cssSelector("div.notice.success");
+    public By rememberMeButton = By.cssSelector("#box-account-login input[type=checkbox]");
 
 
     public String expectedResultMessageSuccessText = "You are now logged in as";
-
 
 
 
