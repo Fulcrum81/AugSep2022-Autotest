@@ -1,5 +1,7 @@
 import io.qameta.allure.Description;
 import mavenizer.TestBase;
+import mavenizer.helpers.LocatorHelper;
+import mavenizer.helpers.StringHelper;
 import mavenizer.staticPO.CartPage;
 import mavenizer.staticPO.CataloguePage;
 import org.openqa.selenium.WebElement;
@@ -58,6 +60,37 @@ public class BinTest extends TestBase {
 
         CartPage.goToMainPage(driver);
         Assert.assertEquals(CataloguePage.getCartAmountOnRightTopCorner(driver), "0");
+    }
+
+    /**
+     * Test case #1
+     */
+    @Description("Method adds ducks to bin. Then increase it by " +
+            "clicking up arrow some times(tunable). Checks " +
+            "amounts in bin and totals in order table.")
+    @Test
+    public void increaseElementsByClickingArrowsTest() {
+        /**
+         * You can change initialAmountOfDucks
+         * and ducksToAdd vars if you need
+         */
+        int initialAmountOfDucks = 1;
+        int ducksToAdd = 5;
+
+        String unitPriceFromCatalogue;
+        CataloguePage.addDucksToCart(driver, RED, String.valueOf(initialAmountOfDucks));
+        unitPriceFromCatalogue = CataloguePage.getUnitPrice(driver);
+        CataloguePage.goToCartPage(driver);
+        CartPage.clickIncreaseArrowGivenTimesAndUpdate(driver, ducksToAdd);
+        Assert.assertEquals(driver.findElement(LocatorHelper.getLocator("CartPage.inputField")).getAttribute("value"),
+                String.valueOf(initialAmountOfDucks + ducksToAdd));
+        Assert.assertEquals(CartPage.getOrderSummaryTable(driver).getOrderSummaryRecords().get(0).getQuantity(),
+                String.valueOf(initialAmountOfDucks + ducksToAdd));
+        Assert.assertEquals(CartPage.getOrderSummaryTable(driver).getOrderSummaryRecords().get(0).getUnitCost(),
+                unitPriceFromCatalogue);
+        Assert.assertEquals(CartPage.getOrderSummaryTable(driver).getOrderSummaryRecords().get(0).getTotal().
+                        replace("$", "").replace("€", "").trim(),
+                StringHelper.calculateTotals(unitPriceFromCatalogue, initialAmountOfDucks + ducksToAdd));
     }
 
     /**

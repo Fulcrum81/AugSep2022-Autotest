@@ -4,11 +4,11 @@ import io.qameta.allure.Step;
 import mavenizer.helpers.LocatorHelper;
 import mavenizer.helpers.OrderSummaryRecord;
 import mavenizer.helpers.OrderSummaryTableMapper;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class CartPage {
@@ -53,6 +53,20 @@ public class CartPage {
             }
         }
         return table;
+    }
+
+    @Step("Click increase arrow N times")
+    public static void clickIncreaseArrowGivenTimesAndUpdate(WebDriver driver, int timesClick) {
+        WebElement inputField = driver.findElement(LocatorHelper.getLocator("CartPage.inputField"));
+        inputField.click(); //get focus
+        for (int i = 0; i < timesClick; i++) {
+            inputField.sendKeys(Keys.ARROW_UP);
+        }
+        driver.findElement(LocatorHelper.getLocator("CartPage.updateCartButton")).click(); //Update
+        new WebDriverWait(driver, Duration.ofSeconds(2))
+                .until(ExpectedConditions.jsReturnsValue("return jQuery.active == 0"));
+
+
     }
 
     @Step("Return empty bin message")

@@ -20,6 +20,11 @@ public class CataloguePage {
         return driver.findElement(LocatorHelper.getLocator("CataloguePage.cartAmount")).getText();
     }
 
+    @Step("Return unit price string include currency")
+    public static String getUnitPrice(WebDriver driver) {
+        return driver.findElement(LocatorHelper.getLocator("CataloguePage.unitPrice")).getText();
+    }
+
     @Step("Navigate to bin page")
     public static void goToCartPage(WebDriver driver) {
         driver.findElement(LocatorHelper.getLocator("CataloguePage.cartLink")).click();
