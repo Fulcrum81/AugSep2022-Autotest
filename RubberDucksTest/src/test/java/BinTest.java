@@ -81,7 +81,8 @@ public class BinTest extends TestBase {
         CataloguePage.addDucksToCart(driver, RED, String.valueOf(initialAmountOfDucks));
         unitPriceFromCatalogue = CataloguePage.getUnitPrice(driver);
         CataloguePage.goToCartPage(driver);
-        CartPage.clickIncreaseArrowGivenTimesAndUpdate(driver, ducksToAdd);
+        CartPage.clickIncreaseArrowGivenTimes(driver, ducksToAdd);
+        CartPage.updateButtonClick(driver);
         Assert.assertEquals(driver.findElement(LocatorHelper.getLocator("CartPage.inputField")).getAttribute("value"),
                 String.valueOf(initialAmountOfDucks + ducksToAdd));
         Assert.assertEquals(CartPage.getOrderSummaryTable(driver).getOrderSummaryRecords().get(0).getQuantity(),
@@ -95,15 +96,19 @@ public class BinTest extends TestBase {
     }
 
     /**
-     * Just a showcase to table mapper. No asserts yet
+     * Test case #13
      */
+    @Description("Method adds 1 duck to bin. Then decrease it by " +
+            "clicking up arrow 5 times. Checks " +
+            "validation works well, input field stays '0' and ducks removed after update clicked")
     @Test
-    public void tableTest() {
-        CataloguePage.addDucksToCart(driver, YELLOW, "8");
+    public void decreaseElementsLessThanZeroByClickingArrowsTest() {
+        CataloguePage.addDucksToCart(driver, GREEN, "1");
         CataloguePage.goToCartPage(driver);
-        System.out.println(CartPage.getOrderSummaryTable(driver)); //Checking what happens after first add method
-        CataloguePage.addDucksToCart(driver, RED, "12");
-        CataloguePage.goToCartPage(driver);
-        System.out.println(CartPage.getOrderSummaryTable(driver)); //Checking what happens after second add method
+        Assert.assertEquals(driver.findElement(LocatorHelper.getLocator("CartPage.inputField")).getAttribute("value"),"1");
+        CartPage.clickDecreaseArrowGivenTimes(driver, 5);
+        Assert.assertEquals(driver.findElement(LocatorHelper.getLocator("CartPage.inputField")).getAttribute("value"),"0");
+        CartPage.updateButtonClick(driver);
+        Assert.assertEquals(CartPage.getEmptyBinMessage(driver), "There are no items in your cart.");
     }
 }

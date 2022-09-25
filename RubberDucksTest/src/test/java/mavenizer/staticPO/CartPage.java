@@ -56,17 +56,28 @@ public class CartPage {
     }
 
     @Step("Click increase arrow N times")
-    public static void clickIncreaseArrowGivenTimesAndUpdate(WebDriver driver, int timesClick) {
+    public static void clickIncreaseArrowGivenTimes(WebDriver driver, int timesClick) {
         WebElement inputField = driver.findElement(LocatorHelper.getLocator("CartPage.inputField"));
         inputField.click(); //get focus
         for (int i = 0; i < timesClick; i++) {
             inputField.sendKeys(Keys.ARROW_UP);
         }
+    }
+
+    @Step("Click decrease arrow N times")
+    public static void clickDecreaseArrowGivenTimes(WebDriver driver, int timesClick) {
+        WebElement inputField = driver.findElement(LocatorHelper.getLocator("CartPage.inputField"));
+        inputField.click(); //get focus
+        for (int i = 0; i < timesClick; i++) {
+            inputField.sendKeys(Keys.ARROW_DOWN);
+        }
+    }
+
+    @Step("Update button click")
+    public static void updateButtonClick(WebDriver driver) {
         driver.findElement(LocatorHelper.getLocator("CartPage.updateCartButton")).click(); //Update
         new WebDriverWait(driver, Duration.ofSeconds(2))
                 .until(ExpectedConditions.jsReturnsValue("return jQuery.active == 0"));
-
-
     }
 
     @Step("Return empty bin message")
