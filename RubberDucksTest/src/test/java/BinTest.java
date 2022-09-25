@@ -89,7 +89,8 @@ public class BinTest extends TestBase {
         Assert.assertEquals(CartPage.getOrderSummaryTable(driver).getOrderSummaryRecords().get(0).getUnitCost(),
                 unitPriceFromCatalogue);
         Assert.assertEquals(CartPage.getOrderSummaryTable(driver).getOrderSummaryRecords().get(0).getTotal().
-                        replace("$", "").replace("€", "").trim(),
+                        replace("$", "").replace("€", "")
+                        .replace("?", "").trim(),
                 StringHelper.calculateTotals(unitPriceFromCatalogue, initialAmountOfDucks + ducksToAdd));
     }
 

@@ -6,3 +6,4 @@ target/
 build/
 .idea/
 .allure/
+allure-results/
