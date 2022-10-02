@@ -1,4 +1,4 @@
-package mavenizer.helpers;
+package mavenizer.dto;
 
 public class OrderSummaryRecord {
     private final String quantity;

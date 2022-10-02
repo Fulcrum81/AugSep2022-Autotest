@@ -2,8 +2,8 @@ package mavenizer.staticPO;
 
 import io.qameta.allure.Step;
 import mavenizer.helpers.LocatorHelper;
-import mavenizer.helpers.OrderSummaryRecord;
-import mavenizer.helpers.OrderSummaryTableMapper;
+import mavenizer.dto.OrderSummaryRecord;
+import mavenizer.dto.OrderSummaryTableMapper;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CartPage {
     @Step("Return links to all categories in the bin")
-    public static List<WebElement> getCategoriesLiList(WebDriver driver) {
+    public static List<WebElement> getCategoriesLinksList(WebDriver driver) {
         try {
             return driver.findElements(LocatorHelper.getLocator("CartPage.categoriesLinksList"));
         } catch (NoSuchElementException ex) {
@@ -84,6 +84,12 @@ public class CartPage {
     public static String getEmptyBinMessage(WebDriver driver) {
         return driver.findElement(LocatorHelper.getLocator("CartPage.emptyBinMessage")).getText();
     }
+
+    @Step("Return input field value")
+    public static String getInputFieldValue(WebDriver driver) {
+        return driver.findElement(LocatorHelper.getLocator("CartPage.inputField")).getAttribute("value");
+    }
+
 
     public static void goToMainPage(WebDriver driver) {
         driver.get("https://litecart.stqa.ru/en/");

@@ -3,6 +3,7 @@ package mavenizer.staticPO;
 import io.qameta.allure.Step;
 import mavenizer.helpers.Ducks;
 import mavenizer.helpers.LocatorHelper;
+import mavenizer.helpers.Waits;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -31,7 +32,7 @@ public class CataloguePage {
     }
 
     @Step("Add some amount some category of ducks")
-    public static void addDucksToCart(WebDriver driver, Ducks duckType, String ducksQuantity) {
+    public static void addDucksToCart(WebDriver driver, Ducks duckType, int ducksQuantity) {
         switch (duckType) {
             case RED:
                 driver.get("https://litecart.stqa.ru/en/rubber-ducks-c-1/");
@@ -55,14 +56,12 @@ public class CataloguePage {
                 break;
         }
         driver.findElement(LocatorHelper.getLocator("CataloguePage.addToCartInputQuantity")).clear();
-        driver.findElement(LocatorHelper.getLocator("CataloguePage.addToCartInputQuantity")).sendKeys(ducksQuantity);
+        driver.findElement(LocatorHelper.getLocator("CataloguePage.addToCartInputQuantity")).sendKeys(String.valueOf(ducksQuantity));
         if (duckType == Ducks.YELLOW) { //Fill size
             driver.findElement(LocatorHelper.getLocator("CataloguePage.yellowDuckSizeCombo")).sendKeys("Small");
         }
         driver.findElement(LocatorHelper.getLocator("CataloguePage.addToCartButton")).click();
-
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.presenceOfElementLocated(LocatorHelper.getLocator("CataloguePage.cartAmountStyle")));
+        Waits.waitForAnimationEnds(driver, 5);
     }
 
 }

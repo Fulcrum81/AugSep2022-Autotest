@@ -1,4 +1,6 @@
-package mavenizer.helpers;
+package mavenizer.dto;
+
+import mavenizer.dto.OrderSummaryRecord;
 
 import java.util.ArrayList;
 import java.util.List;
