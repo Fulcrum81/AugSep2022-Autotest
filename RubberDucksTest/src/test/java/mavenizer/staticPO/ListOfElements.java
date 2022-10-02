@@ -1,6 +1,6 @@
 package mavenizer.staticPO;
 
-import org.openqa.selenium.By;
+import mavenizer.helpers.LocatorHelper;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -14,12 +14,12 @@ public class ListOfElements {
     }
 
     public void selectElementFromListOfElementsInBin(int number) {
-        List<WebElement> list = listOfElementsInBin.findElements(By.xpath("//*[@class='shortcuts']//*[@class='shortcut']"));
+        List<WebElement> list = listOfElementsInBin.findElements(LocatorHelper.getLocator("ElementFromListOfElementsInBin"));
         list.get(number).click();
     }
 
     public int getListOfElementsInBin() {
-        List<WebElement> list = listOfElementsInBin.findElements(By.xpath("//*[@class='shortcuts']//*[@class='shortcut']"));
+        List<WebElement> list = listOfElementsInBin.findElements(LocatorHelper.getLocator("ElementFromListOfElementsInBin"));
         return list.size();
     };
 

@@ -1,6 +1,6 @@
 package mavenizer.staticPO;
 
-import mavenizer.helpers.Zarytski.Builder;
+import mavenizer.helpers.Zarytski.Actions;
 import mavenizer.helpers.LocatorHelper;
 import mavenizer.helpers.Zarytski.Waits;
 import org.openqa.selenium.WebDriver;
@@ -38,8 +38,8 @@ public class CataloguePage {
 
     public static void addFiveSameElements(WebDriver driver) {
         driver.findElement(LocatorHelper.getLocator("CataloguePage.greenDuck")).click();
-        Builder.selectAll(driver, "CataloguePage.quantityOfElements");
-        Builder.deleteValue(driver, "CataloguePage.quantityOfElements");
+        Actions.selectAll(driver, "CataloguePage.quantityOfElements");
+        Actions.deleteValue(driver, "CataloguePage.quantityOfElements");
         driver.findElement(LocatorHelper.getLocator("CataloguePage.quantityOfElements")).sendKeys("5");
         driver.findElement(LocatorHelper.getLocator("CataloguePage.buttonAddToCart")).click();
         Waits.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity","5");

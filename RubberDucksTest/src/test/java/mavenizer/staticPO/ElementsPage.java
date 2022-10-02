@@ -1,6 +1,6 @@
 package mavenizer.staticPO;
 
-import org.openqa.selenium.By;
+import mavenizer.helpers.LocatorHelper;
 import org.openqa.selenium.WebDriver;
 
 public class ElementsPage {
@@ -10,7 +10,7 @@ public class ElementsPage {
     WebDriver driver;
     public ElementsPage(WebDriver driver) {
         this.driver = driver;
-        check1 = new ListOfElements(driver.findElement(By.xpath("//*[@class='shortcuts']")));
+        check1 = new ListOfElements(driver.findElement(LocatorHelper.getLocator("ElementsPage")));
     }
 
 }
