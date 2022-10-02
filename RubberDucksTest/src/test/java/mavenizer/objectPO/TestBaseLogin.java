@@ -13,6 +13,7 @@ import java.time.Duration;
 public class TestBaseLogin {
 
     WebDriver driver;
+    LogInForm login;
 
     @BeforeMethod
     protected void startTest () {
@@ -29,6 +30,8 @@ public class TestBaseLogin {
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
         driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(10));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        LogInForm login = new LogInForm(driver);
+        driver.get(login.URL_MAIN_PAGE);
     }
 
 

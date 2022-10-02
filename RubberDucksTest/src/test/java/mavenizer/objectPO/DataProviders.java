@@ -5,7 +5,9 @@ import org.testng.annotations.DataProvider;
 public class DataProviders {
 
     private String testUserEmail = "5555@tut.by";
+    private String testUserWrongEmail = "aaa@gmail.com";
     private String testUserPassword = "5555";
+    private String testUserWrongPassword = "7777";
 
 
     @DataProvider(name = "ValidCredentials")
@@ -19,8 +21,9 @@ public class DataProviders {
     @DataProvider(name = "WrongCredentials")
     public Object[][] dataForLognInWithWrongCredentials () {
         return new Object[][]{
-                {"aaa@gmail.com", testUserPassword},
-                {testUserEmail, "7777"},
+                {testUserWrongEmail, testUserPassword},
+                {testUserEmail, testUserWrongPassword},
+                {testUserWrongEmail, testUserWrongPassword},
         };
     }
 

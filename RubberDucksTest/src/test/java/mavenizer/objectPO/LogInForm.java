@@ -16,30 +16,19 @@ public class LogInForm {
     public By buttonLogIn = By.cssSelector("#box-account-login button[name='login']");
     public By sectionAccountForLoggedUser = By.cssSelector("#box-account");
     public By resultMessageSuccess = By.cssSelector("div.notice.success");
-
-
     public String expectedResultMessageSuccessText = "You are now logged in as";
-
-
-
-
-    private final WebDriver driver;
-
+    private WebDriver driver;
+    public WebDriverWait wait;
 
     public LogInForm(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(5));
     }
 
-
-    public void attemptToLogIn (String email, String password) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+   public void attemptToLogIn (String email, String password) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(inputEmail)).sendKeys(email);
         wait.until(ExpectedConditions.visibilityOfElementLocated(inputPassword)).sendKeys(password);
         driver.findElement(buttonLogIn).click();
     }
-
-
-
-
 
 }
