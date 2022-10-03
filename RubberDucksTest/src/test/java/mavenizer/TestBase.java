@@ -34,7 +34,7 @@ public class TestBase {
                 EdgeOptions edgeOptions = new EdgeOptions();
                 edgeOptions.addArguments("--remote-debugging-port=9222");
                 edgeOptions.addArguments("--no-sandbox");
-                driver = new EdgeDriver();
+                driver = new EdgeDriver(edgeOptions);
                 break;
             default:
                 driver = new ChromeDriver();
