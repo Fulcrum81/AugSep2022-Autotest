@@ -34,6 +34,7 @@ public class TestBase {
                 EdgeOptions edgeOptions = new EdgeOptions();
                 edgeOptions.addArguments("--remote-debugging-port=9222");
                 edgeOptions.addArguments("--no-sandbox");
+                edgeOptions.addArguments("--disable-dev-shm-usage");
                 driver = new EdgeDriver(edgeOptions);
                 break;
             default:
