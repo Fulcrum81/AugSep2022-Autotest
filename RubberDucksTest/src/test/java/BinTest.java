@@ -127,6 +127,7 @@ public class BinTest extends TestBase {
 
     @Test
     public void ordering() {
+        //I decided add a new test
         CataloguePage.addTreeElementsToBin(driver);
         Waits.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity","3");
         CataloguePage.goToCartPage(driver);
