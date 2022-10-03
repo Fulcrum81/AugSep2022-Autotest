@@ -61,7 +61,7 @@ public class CataloguePage {
             driver.findElement(LocatorHelper.getLocator("CataloguePage.yellowDuckSizeCombo")).sendKeys("Small");
         }
         driver.findElement(LocatorHelper.getLocator("CataloguePage.addToCartButton")).click();
-        Waits.waitForAnimationEnds(driver, 5);
+        Waits.waitForAnimationEnds(driver, 10);
     }
 
 }
