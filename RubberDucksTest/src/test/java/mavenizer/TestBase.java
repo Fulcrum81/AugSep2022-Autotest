@@ -33,6 +33,7 @@ public class TestBase {
             case EDGE:
                 EdgeOptions edgeOptions = new EdgeOptions();
                 edgeOptions.addArguments("--remote-debugging-port=9222");
+                edgeOptions.addArguments("--no-sandbox");
                 driver = new EdgeDriver();
                 break;
             default:
