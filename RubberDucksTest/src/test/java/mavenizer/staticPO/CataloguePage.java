@@ -5,12 +5,8 @@ import mavenizer.helpers.Ducks;
 import mavenizer.helpers.Zarytski.Actions;
 import mavenizer.helpers.LocatorHelper;
 import mavenizer.helpers.Waits;
-import mavenizer.helpers.Zarytski.Waits;
+import mavenizer.helpers.Zarytski.WaitsZarytski;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class CataloguePage {
     @Step("Return amount of ducks in the bin with currency sign")
@@ -34,7 +30,7 @@ public class CataloguePage {
     }
 
     public static void addOneElementToBin(WebDriver driver) {
-        Waits.implicitWaitPageLoadTimeout(driver);
+        WaitsZarytski.implicitWaitPageLoadTimeout(driver);
         driver.findElement(LocatorHelper.getLocator("CataloguePage.greenDuck")).click();
         driver.findElement(LocatorHelper.getLocator("CataloguePage.buttonAddToCart")).click();
     }
@@ -42,11 +38,11 @@ public class CataloguePage {
     public static void addTreeElementsToBin(WebDriver driver) {
         driver.findElement(LocatorHelper.getLocator("CataloguePage.greenDuck")).click();
         driver.findElement(LocatorHelper.getLocator("CataloguePage.buttonAddToCart")).click();
-        Waits.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity", "1");
+        WaitsZarytski.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity", "1");
         driver.findElement(LocatorHelper.getLocator("CataloguePage.goToHome")).click();
         driver.findElement(LocatorHelper.getLocator("CataloguePage.redDuck")).click();
         driver.findElement(LocatorHelper.getLocator("CataloguePage.buttonAddToCart")).click();
-        Waits.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity", "2");
+        WaitsZarytski.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity", "2");
         driver.findElement(LocatorHelper.getLocator("CataloguePage.goToHome")).click();
         driver.findElement(LocatorHelper.getLocator("CataloguePage.blueDuck")).click();
         driver.findElement(LocatorHelper.getLocator("CataloguePage.buttonAddToCart")).click();
@@ -58,7 +54,7 @@ public class CataloguePage {
         Actions.deleteValue(driver, "CataloguePage.quantityOfElements");
         driver.findElement(LocatorHelper.getLocator("CataloguePage.quantityOfElements")).sendKeys("5");
         driver.findElement(LocatorHelper.getLocator("CataloguePage.buttonAddToCart")).click();
-        Waits.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity","5");
+        WaitsZarytski.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity","5");
         driver.findElement(LocatorHelper.getLocator("CataloguePage.cartLink")).click();
     }
 

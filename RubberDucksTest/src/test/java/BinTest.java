@@ -1,24 +1,24 @@
 import io.qameta.allure.Description;
-import mavenizer.helpers.LocatorHelper;
-import mavenizer.helpers.Zarytski.Waits;
-import mavenizer.staticPO.CartPage;
-import mavenizer.staticPO.CataloguePage;
 import mavenizer.TestBase;
+import mavenizer.helpers.LocatorHelper;
 import mavenizer.helpers.StringHelper;
 import mavenizer.helpers.Waits;
+import mavenizer.helpers.Zarytski.WaitsZarytski;
 import mavenizer.staticPO.CartPage;
 import mavenizer.staticPO.CataloguePage;
-import org.openqa.selenium.WebElement;
 import mavenizer.staticPO.ElementsPage;
 import mavenizer.staticPO.TablesPage;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static mavenizer.helpers.Ducks.*;
-import java.util.concurrent.TimeUnit;
+
+
 
 public class BinTest extends TestBase {
     /**
@@ -76,7 +76,7 @@ public class BinTest extends TestBase {
         LOG.info("Waiting add one element to bin");
 
         String expectedAmount = "1";
-        Waits.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity", expectedAmount);
+        WaitsZarytski.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity", expectedAmount);
 
         String after = CataloguePage.getCartQuantityOnRightTopCorner(driver);
 
@@ -90,7 +90,7 @@ public class BinTest extends TestBase {
         CataloguePage.addTreeElementsToBin(driver);
 
         String expectedAmount = "3";
-        Waits.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity", expectedAmount);
+        WaitsZarytski.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity", expectedAmount);
 
         String after = CataloguePage.getCartQuantityOnRightTopCorner(driver);
 
@@ -110,7 +110,7 @@ public class BinTest extends TestBase {
         CartPage.reduceTheAmountToOne(driver);
 
         String expectedSum = "14.80 €";
-        Waits.explicitWaitTextToBe(driver, "CartPage.paymentDue",expectedSum);
+        WaitsZarytski.explicitWaitTextToBe(driver, "CartPage.paymentDue",expectedSum);
 
         TablesPage tablesPage2 = new TablesPage(driver);
         String getCellAfter = tablesPage2.example1.getCell(1,0).getText();
@@ -124,17 +124,17 @@ public class BinTest extends TestBase {
     @Test
     public void increaseItemsInTheCart() {
         CataloguePage.addOneElementToBin(driver);
-        Waits.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity","1");
+        WaitsZarytski.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity","1");
         CataloguePage.goToCartPage(driver);
 
-        TablesPage tablesPage3 = new TablesPage(driver);
-        String getCellBefore = tablesPage3.example1.getCell(1,0).getText();
+        TablesPage tablesPage1 = new TablesPage(driver);
+        String getCellBefore = tablesPage1.example1.getCell(1,0).getText();
         System.out.println(getCellBefore);
 
         CartPage.increaseItemsInTheCartByFive(driver);
 
         String expectedSum = "74.00 €";
-        Waits.explicitWaitTextToBe(driver, "CartPage.paymentDue",expectedSum);
+        WaitsZarytski.explicitWaitTextToBe(driver, "CartPage.paymentDue",expectedSum);
 
         TablesPage tablesPage4 = new TablesPage(driver);
         String getCellAfter = tablesPage4.example1.getCell(1,0).getText();
@@ -151,7 +151,7 @@ public class BinTest extends TestBase {
         CataloguePage.addTreeElementsToBin(driver);
 
         String expectedAmount = "3";
-        Waits.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity",expectedAmount);
+        WaitsZarytski.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity",expectedAmount);
         CataloguePage.goToCartPage(driver);
 
         ElementsPage beforeRemove = new ElementsPage(driver);
@@ -159,7 +159,7 @@ public class BinTest extends TestBase {
         System.out.println(allSumBefore);
 
         int expectedSum = 3;
-        Waits.explicitWaitNumberOfElementsToBe(driver, "CartPage.listOfElements", expectedSum);
+        WaitsZarytski.explicitWaitNumberOfElementsToBe(driver, "CartPage.listOfElements", expectedSum);
 
         ElementsPage myListOfElements = new ElementsPage(driver);
         myListOfElements.check1.selectElementFromListOfElementsInBin(0);
@@ -167,7 +167,7 @@ public class BinTest extends TestBase {
         CartPage.removeElement(driver);
 
         int sumListOfElements = 2;
-        Waits.explicitWaitNumberOfElementsToBe(driver, "CartPage.listOfElements", sumListOfElements);
+        WaitsZarytski.explicitWaitNumberOfElementsToBe(driver, "CartPage.listOfElements", sumListOfElements);
 
         ElementsPage afterRemove = new ElementsPage(driver);
         int allSumAfter = afterRemove.check1.getListOfElementsInBin();
@@ -182,52 +182,54 @@ public class BinTest extends TestBase {
     public void ordering() {
         //I decided add a new test
         CataloguePage.addTreeElementsToBin(driver);
-        Waits.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity","3");
+        WaitsZarytski.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity", "3");
         CataloguePage.goToCartPage(driver);
 
         CartPage.enterValidValueInCustomerDetails(driver);
 
-        Waits.elementToBeClickable(driver, "CartPage.btnSaveChanges");
+        WaitsZarytski.elementToBeClickable(driver, "CartPage.btnSaveChanges");
         CartPage.clickBtnSaveChanges(driver);
 
-        Waits.element(driver);
+        WaitsZarytski.element(driver);
 
         CartPage.clickBtnConfirmOrder(driver);
 
-        Waits.explicitWaitTextToBe(driver,"CartPage.successful", "Your order is successfully completed!");
+        WaitsZarytski.explicitWaitTextToBe(driver, "CartPage.successful", "Your order is successfully completed!");
 
         String textSuccessful = driver.findElement(LocatorHelper.getLocator("CartPage.successful")).getText();
         String expectedText = "Your order is successfully completed!";
 
         Assert.assertEquals(textSuccessful, expectedText);
-
-    public void increaseElementsByClickingArrowsTest() {
-        /**
-         * You can change initialAmountOfDucks
-         * and ducksToAdd vars if you need
-         */
-        int initialAmountOfDucks = 1;
-        int ducksToAdd = 5;
-
-        String unitPriceFromCatalogue;
-        CataloguePage.addDucksToCart(driver, RED, initialAmountOfDucks);
-        unitPriceFromCatalogue = CataloguePage.getUnitPrice(driver);
-        CataloguePage.goToCartPage(driver);
-        CartPage.clickIncreaseArrowGivenTimes(driver, ducksToAdd);
-        CartPage.updateButtonClick(driver);
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(CartPage.getInputFieldValue(driver),
-                String.valueOf(initialAmountOfDucks + ducksToAdd));
-        softAssert.assertEquals(CartPage.getOrderSummaryTable(driver).getOrderSummaryRecords().get(0).getQuantity(),
-                String.valueOf(initialAmountOfDucks + ducksToAdd));
-        softAssert.assertEquals(CartPage.getOrderSummaryTable(driver).getOrderSummaryRecords().get(0).getUnitCost(),
-                unitPriceFromCatalogue);
-        softAssert.assertEquals(CartPage.getOrderSummaryTable(driver).getOrderSummaryRecords().get(0).getTotal().
-                        replace("$", "").replace("€", "")
-                        .replace("?", "").trim(),
-                StringHelper.calculateTotals(unitPriceFromCatalogue, initialAmountOfDucks + ducksToAdd));
-        softAssert.assertAll();
     }
+
+        public void increaseElementsByClickingArrowsTest() {
+            /**
+             * You can change initialAmountOfDucks
+             * and ducksToAdd vars if you need
+             */
+            int initialAmountOfDucks = 1;
+            int ducksToAdd = 5;
+
+            String unitPriceFromCatalogue;
+            CataloguePage.addDucksToCart(driver, RED, initialAmountOfDucks);
+            unitPriceFromCatalogue = CataloguePage.getUnitPrice(driver);
+            CataloguePage.goToCartPage(driver);
+            CartPage.clickIncreaseArrowGivenTimes(driver, ducksToAdd);
+            CartPage.updateButtonClick(driver);
+            SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(CartPage.getInputFieldValue(driver),
+                    String.valueOf(initialAmountOfDucks + ducksToAdd));
+            softAssert.assertEquals(CartPage.getOrderSummaryTable(driver).getOrderSummaryRecords().get(0).getQuantity(),
+                    String.valueOf(initialAmountOfDucks + ducksToAdd));
+            softAssert.assertEquals(CartPage.getOrderSummaryTable(driver).getOrderSummaryRecords().get(0).getUnitCost(),
+                    unitPriceFromCatalogue);
+            softAssert.assertEquals(CartPage.getOrderSummaryTable(driver).getOrderSummaryRecords().get(0).getTotal().
+                            replace("$", "").replace("€", "")
+                            .replace("?", "").trim(),
+                    StringHelper.calculateTotals(unitPriceFromCatalogue, initialAmountOfDucks + ducksToAdd));
+            softAssert.assertAll();
+        }
+
 
     /**
      * Test case #13
