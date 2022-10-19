@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.logging.Logger;
 
 import mavenizer.helpers.Zarytski.Actions;
 import mavenizer.helpers.LocatorHelper;
@@ -17,6 +18,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class CartPage {
+
     public static void reduceTheAmountToOne(WebDriver driver) {
         driver.findElement(LocatorHelper.getLocator("CartPage.quantityOfElements")).click();
         Actions.selectAll(driver,"CartPage.quantityOfElements");

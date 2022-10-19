@@ -8,6 +8,7 @@ import mavenizer.staticPO.CartPage;
 import mavenizer.staticPO.CataloguePage;
 import mavenizer.staticPO.ElementsPage;
 import mavenizer.staticPO.TablesPage;
+
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -15,12 +16,21 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import static mavenizer.helpers.Ducks.*;
 
-
+//@Listeners (ScreenshotListener.class)
 
 public class BinTest extends TestBase {
+    final static Logger logger = Logger.getLogger(String.valueOf(BinTest.class));
+
+    //File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+   //File folderForFiles = new File("C:\\Users\\user\\Desktop\\ScreenShot");
+   // Allure.addAttachment("screenshot_name", new FileInputStream(screenshot));
+
+
+
     /**
      * Test case #4
      */
@@ -80,24 +90,29 @@ public class BinTest extends TestBase {
 
         String after = CataloguePage.getCartQuantityOnRightTopCorner(driver);
 
-        String expectedResult = "1";
+        String expectedResult = "2"; //1_NEW_NEW_NEW
         Assert.assertEquals(after, expectedResult);
     }
 
+
+    @ Description (" Add tree elements to bin")
     @Test
     public void checkAddTreeElementToBin() {
+        logger.info("Step_1");
         String before = CataloguePage.getCartQuantityOnRightTopCorner(driver);
+        logger.info("Step_2");
         CataloguePage.addTreeElementsToBin(driver);
-
+        logger.info("Step_3");
         String expectedAmount = "3";
         WaitsZarytski.explicitWaitTextToBe(driver, "CataloguePage.cartQuantity", expectedAmount);
-
+        logger.info("Step_4");
         String after = CataloguePage.getCartQuantityOnRightTopCorner(driver);
-
-        String expectedResult = "3";
+        logger.info("Step_5");
+        String expectedResult = "2";  //NEW_NEW_NEW 2
         Assert.assertEquals(after, expectedResult);
     }
 
+    @ Description ("Reduce items in the cart")
 
     @Test
     public void reduceItemsInTheCart() {
@@ -140,7 +155,7 @@ public class BinTest extends TestBase {
         String getCellAfter = tablesPage4.example1.getCell(1,0).getText();
         System.out.println(getCellAfter);
 
-        String expectedResult = "5";
+        String expectedResult = "0"; //NEW 5
         Assert.assertEquals(getCellAfter, expectedResult);
 
     }
@@ -249,4 +264,8 @@ public class BinTest extends TestBase {
         softAssert.assertEquals(CartPage.getEmptyBinMessage(driver), "There are no items in your cart.");
         softAssert.assertAll();
     }
+
+//    public File getScreenshot() {
+//        return screenshot;
+//    }
 }
