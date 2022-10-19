@@ -90,7 +90,7 @@ public class BinTest extends TestBase {
 
         String after = CataloguePage.getCartQuantityOnRightTopCorner(driver);
 
-        String expectedResult = "2"; //1_NEW_NEW_NEW
+        String expectedResult = "1"; //1_NEW_NEW_NEW
         Assert.assertEquals(after, expectedResult);
     }
 
@@ -108,7 +108,7 @@ public class BinTest extends TestBase {
         logger.info("Step_4");
         String after = CataloguePage.getCartQuantityOnRightTopCorner(driver);
         logger.info("Step_5");
-        String expectedResult = "2";  //NEW_NEW_NEW 2
+        String expectedResult = "3";  //NEW_NEW_NEW 2
         Assert.assertEquals(after, expectedResult);
     }
 
@@ -155,7 +155,7 @@ public class BinTest extends TestBase {
         String getCellAfter = tablesPage4.example1.getCell(1,0).getText();
         System.out.println(getCellAfter);
 
-        String expectedResult = "0"; //NEW 5
+        String expectedResult = "5"; //NEW 5
         Assert.assertEquals(getCellAfter, expectedResult);
 
     }
