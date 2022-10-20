@@ -1,4 +1,4 @@
-import io.qameta.allure.Description;
+import io.qameta.allure.*;
 import mavenizer.TestBase;
 import mavenizer.helpers.LocatorHelper;
 import mavenizer.helpers.StringHelper;
@@ -95,8 +95,12 @@ public class BinTest extends TestBase {
     }
 
 
-    @ Description (" Add tree elements to bin")
     @Test
+    @Description (" Add tree elements to bin")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("[Jira-12345] Story check")
+    @Feature("Add tree item to bin")
+    @Step("Validation add tree items to Bin")
     public void checkAddTreeElementToBin() {
         logger.info("Step_1");
         String before = CataloguePage.getCartQuantityOnRightTopCorner(driver);
