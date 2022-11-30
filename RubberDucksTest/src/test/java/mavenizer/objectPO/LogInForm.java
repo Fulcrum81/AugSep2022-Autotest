@@ -3,10 +3,13 @@ package mavenizer.objectPO;
 import mavenizer.helpers.LocatorHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+
+import static org.testng.Assert.assertTrue;
 
 public class LogInForm {
 
@@ -38,9 +41,5 @@ public class LogInForm {
         wait.until(ExpectedConditions.visibilityOfElementLocated(inputPassword)).sendKeys(password);
         driver.findElement(buttonLogIn).click();
     }
-
-
-
-
 
 }

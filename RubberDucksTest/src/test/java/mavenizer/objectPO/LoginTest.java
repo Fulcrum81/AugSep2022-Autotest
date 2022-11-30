@@ -1,12 +1,16 @@
 package mavenizer.objectPO;
 
 import mavenizer.helpers.LocatorHelper;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
+import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 
@@ -20,6 +24,18 @@ public class LoginTest extends TestBaseLogin {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(login.loginForm)).isDisplayed(),
                 "LogIn Form is not displayed");
+    }
+
+    @Test
+    public void loginAndPasswordFieldsDisplayed() {
+        LogInForm login = new LogInForm(driver);
+        driver.get(login.URL_MAIN_PAGE);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(login.inputEmail)).isDisplayed(),
+        "Login field is not displayed");
+        assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(login.inputPassword)).isDisplayed(),
+                "Password field is not displayed");
+
     }
 
 
