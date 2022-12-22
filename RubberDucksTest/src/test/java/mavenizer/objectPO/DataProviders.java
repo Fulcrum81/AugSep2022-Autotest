@@ -3,10 +3,8 @@ package mavenizer.objectPO;
 import org.testng.annotations.DataProvider;
 
 public class DataProviders {
-
-    private String testUserEmail = "5555@tut.by";
-    private String testUserPassword = "5555";
-
+    private String testUserEmail = "cwoyb@mailto.plus";
+    private String testUserPassword = "12345";
 
     @DataProvider(name = "ValidCredentials")
     public Object[][] dataForLognInWithValidCredentials () {
@@ -15,7 +13,6 @@ public class DataProviders {
         };
     }
 
-
     @DataProvider(name = "WrongCredentials")
     public Object[][] dataForLognInWithWrongCredentials () {
         return new Object[][]{
@@ -23,6 +20,5 @@ public class DataProviders {
                 {testUserEmail, "7777"},
         };
     }
-
 
 }

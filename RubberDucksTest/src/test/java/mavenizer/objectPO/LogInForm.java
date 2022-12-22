@@ -14,6 +14,7 @@ import static org.testng.Assert.assertTrue;
 public class LogInForm {
 
     public final String URL_MAIN_PAGE = "https://litecart.stqa.ru/en/";
+    public By logotypeImg = By.cssSelector("#logotype-wrapper img");
     public By loginForm = By.cssSelector("#box-account-login");
     public By inputEmail = By.cssSelector("#box-account-login input[name='email']");
     public By inputPassword = By.cssSelector("#box-account-login input[name='password']");
@@ -21,25 +22,27 @@ public class LogInForm {
     public By sectionAccountForLoggedUser = By.cssSelector("#box-account");
     public By resultMessageSuccess = By.cssSelector("div.notice.success");
     public By rememberMeButton = By.cssSelector("#box-account-login input[type=checkbox]");
-
-
     public String expectedResultMessageSuccessText = "You are now logged in as";
 
-
-
     private final WebDriver driver;
-
 
     public LogInForm(WebDriver driver) {
         this.driver = driver;
     }
-
 
     public void attemptToLogIn (String email, String password) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(inputEmail)).sendKeys(email);
         wait.until(ExpectedConditions.visibilityOfElementLocated(inputPassword)).sendKeys(password);
         driver.findElement(buttonLogIn).click();
+    }
+
+    public void waiterMethod(WebDriverWait wait) {
+        assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(logotypeImg)).isDisplayed());
+    }
+
+    public String returnMessageIfLoggedIn() {
+        return expectedResultMessageSuccessText;
     }
 
 }
