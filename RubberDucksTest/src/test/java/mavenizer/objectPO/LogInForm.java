@@ -1,9 +1,7 @@
 package mavenizer.objectPO;
 
-import mavenizer.helpers.LocatorHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,15 +12,15 @@ import static org.testng.Assert.assertTrue;
 public class LogInForm {
 
     public final String URL_MAIN_PAGE = "https://litecart.stqa.ru/en/";
-    public By logotypeImg = By.cssSelector("#logotype-wrapper img");
-    public By loginForm = By.cssSelector("#box-account-login");
-    public By inputEmail = By.cssSelector("#box-account-login input[name='email']");
-    public By inputPassword = By.cssSelector("#box-account-login input[name='password']");
-    public By buttonLogIn = By.cssSelector("#box-account-login button[name='login']");
-    public By sectionAccountForLoggedUser = By.cssSelector("#box-account");
-    public By resultMessageSuccess = By.cssSelector("div.notice.success");
-    public By rememberMeButton = By.cssSelector("#box-account-login input[type=checkbox]");
-    public String expectedResultMessageSuccessText = "You are now logged in as";
+    private By logotypeImg = By.cssSelector("#logotype-wrapper img");
+    private By loginForm = By.cssSelector("#box-account-login");
+    private By inputEmail = By.cssSelector("#box-account-login input[name='email']");
+    private By inputPassword = By.cssSelector("#box-account-login input[name='password']");
+    private By buttonLogIn = By.cssSelector("#box-account-login button[name='login']");
+    private By sectionAccountForLoggedUser = By.cssSelector("#box-account");
+    private By resultMessageSuccess = By.cssSelector("div.notice.success");
+    private By rememberMeButton = By.cssSelector("#box-account-login input[type=checkbox]");
+    private String expectedResultMessageSuccessText = "You are now logged in as";
 
     private final WebDriver driver;
 
@@ -30,6 +28,7 @@ public class LogInForm {
         this.driver = driver;
     }
 
+    
     public void attemptToLogIn (String email, String password) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(inputEmail)).sendKeys(email);
@@ -37,12 +36,35 @@ public class LogInForm {
         driver.findElement(buttonLogIn).click();
     }
 
-    public void waiterMethod(WebDriverWait wait) {
+    public void waitForPageLoadMethod() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(logotypeImg)).isDisplayed());
     }
 
-    public String returnMessageIfLoggedIn() {
-        return expectedResultMessageSuccessText;
+    public void successAuthorizationMessageAfterLoggedInIsDisplayed() {
+        assertTrue(driver.findElement(resultMessageSuccess).getText().contains(expectedResultMessageSuccessText),
+                "Text message about success authorization is wrong");
+    }
+
+    public void sectionAccountForLoggedUserIsDisplayed() {
+        assertTrue(driver.findElement(sectionAccountForLoggedUser).isDisplayed(),
+                "Section Account is not displayed");
+    }
+
+    public void loginFormIsDisplayed() {
+        assertTrue(driver.findElement(loginForm).isDisplayed(), "LogIn Form is not displayed");
+    }
+
+    public void inputEmailFieldIsDisplayed() {
+        assertTrue(driver.findElement(inputEmail).isDisplayed(), "Input Email field is not displayed");
+    }
+
+    public void inputPasswordFieldIsDisplayed() {
+        assertTrue(driver.findElement(inputPassword).isDisplayed(), "Password field is not displayed");
+    }
+
+    public void rememberMeButtonClick() {
+        driver.findElement(rememberMeButton).click();
     }
 
 }

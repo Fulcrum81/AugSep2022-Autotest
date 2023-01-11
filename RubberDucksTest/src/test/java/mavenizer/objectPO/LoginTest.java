@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -21,23 +23,17 @@ public class LoginTest extends TestBaseLogin {
     public void logInFormIsDisplayedTest () {
         LogInForm login = new LogInForm(driver);
         driver.get(login.URL_MAIN_PAGE);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        login.waiterMethod(wait);
-        assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(login.loginForm)).isDisplayed(),
-                "LogIn Form is not displayed");
+        login.waitForPageLoadMethod();
+        login.loginFormIsDisplayed();
     }
 
     @Test
     public void loginAndPasswordFieldsDisplayed() {
         LogInForm login = new LogInForm(driver);
         driver.get(login.URL_MAIN_PAGE);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        login.waiterMethod(wait);
-        assertTrue(wait.until((ExpectedConditions.visibilityOfElementLocated(login.inputEmail))).isDisplayed(),
-                "Login field is not displayed");
-        assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(login.inputPassword)).isDisplayed(),
-                "Password field is not displayed");
-
+        login.waitForPageLoadMethod();
+        login.inputEmailFieldIsDisplayed();
+        login.inputPasswordFieldIsDisplayed();
     }
 
     @Test(dataProvider = "ValidCredentials", dataProviderClass = DataProviders.class)
@@ -45,35 +41,20 @@ public class LoginTest extends TestBaseLogin {
         LogInForm login = new LogInForm(driver);
         driver.get(login.URL_MAIN_PAGE);
         login.attemptToLogIn(email, password);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        login.waiterMethod(wait);
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(login.resultMessageSuccess))
-                        .getText().contains(login.returnMessageIfLoggedIn()),
-                "Text message about success authorization is wrong");
-        softAssert.assertTrue(wait.until(ExpectedConditions
-                .visibilityOfElementLocated(login.sectionAccountForLoggedUser)).isDisplayed(),
-                "Section Account is not displayed");
-        softAssert.assertAll();
+        login.waitForPageLoadMethod();
+        login.successAuthorizationMessageAfterLoggedInIsDisplayed();
+        login.sectionAccountForLoggedUserIsDisplayed();
     }
 
     @Test (dataProvider = "ValidCredentials", dataProviderClass = DataProviders.class)
     public void logInWithRememberMeTest(String email, String password) {
         LogInForm login = new LogInForm(driver);
         driver.get(login.URL_MAIN_PAGE);
-        driver.findElement(login.rememberMeButton).click();
+        login.rememberMeButtonClick();
         login.attemptToLogIn(email, password);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        login.waiterMethod(wait);
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(login.resultMessageSuccess))
-                        .getText().contains(login.returnMessageIfLoggedIn()),
-                "Text message about success authorization is wrong");
-        softAssert.assertTrue(wait.until(ExpectedConditions
-                        .visibilityOfElementLocated(login.sectionAccountForLoggedUser)).isDisplayed(),
-                "Section Account is not displayed");
-        softAssert.assertAll();
-
+        login.waitForPageLoadMethod();
+        login.successAuthorizationMessageAfterLoggedInIsDisplayed();
+        login.sectionAccountForLoggedUserIsDisplayed();
     }
 
 }
