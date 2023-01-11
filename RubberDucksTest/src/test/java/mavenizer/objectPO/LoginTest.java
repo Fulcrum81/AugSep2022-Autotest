@@ -21,22 +21,17 @@ public class LoginTest extends TestBaseLogin {
     public void logInFormIsDisplayedTest () {
         LogInForm login = new LogInForm(driver);
         driver.get(login.URL_MAIN_PAGE);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        login.waiterMethod(wait);
-        assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(login.loginForm)).isDisplayed(),
-                "LogIn Form is not displayed");
+        login.waitForPageLoadMethod();
+        assertTrue(driver.findElement(login.loginForm).isDisplayed(), "LogIn Form is not displayed");
     }
 
     @Test
     public void loginAndPasswordFieldsDisplayed() {
         LogInForm login = new LogInForm(driver);
         driver.get(login.URL_MAIN_PAGE);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        login.waiterMethod(wait);
-        assertTrue(wait.until((ExpectedConditions.visibilityOfElementLocated(login.inputEmail))).isDisplayed(),
-                "Login field is not displayed");
-        assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(login.inputPassword)).isDisplayed(),
-                "Password field is not displayed");
+        login.waitForPageLoadMethod();
+        assertTrue(driver.findElement(login.inputEmail).isDisplayed(), "Login field is not displayed");
+        assertTrue(driver.findElement(login.inputPassword).isDisplayed(), "Password field is not displayed");
 
     }
 
@@ -45,14 +40,12 @@ public class LoginTest extends TestBaseLogin {
         LogInForm login = new LogInForm(driver);
         driver.get(login.URL_MAIN_PAGE);
         login.attemptToLogIn(email, password);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        login.waiterMethod(wait);
+        login.waitForPageLoadMethod();
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(login.resultMessageSuccess))
+        softAssert.assertTrue(driver.findElement(login.resultMessageSuccess)
                         .getText().contains(login.returnMessageIfLoggedIn()),
                 "Text message about success authorization is wrong");
-        softAssert.assertTrue(wait.until(ExpectedConditions
-                .visibilityOfElementLocated(login.sectionAccountForLoggedUser)).isDisplayed(),
+        softAssert.assertTrue(driver.findElement(login.sectionAccountForLoggedUser).isDisplayed(),
                 "Section Account is not displayed");
         softAssert.assertAll();
     }
@@ -63,14 +56,12 @@ public class LoginTest extends TestBaseLogin {
         driver.get(login.URL_MAIN_PAGE);
         driver.findElement(login.rememberMeButton).click();
         login.attemptToLogIn(email, password);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        login.waiterMethod(wait);
+        login.waitForPageLoadMethod();
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(login.resultMessageSuccess))
+        softAssert.assertTrue(driver.findElement(login.resultMessageSuccess)
                         .getText().contains(login.returnMessageIfLoggedIn()),
                 "Text message about success authorization is wrong");
-        softAssert.assertTrue(wait.until(ExpectedConditions
-                        .visibilityOfElementLocated(login.sectionAccountForLoggedUser)).isDisplayed(),
+        softAssert.assertTrue(driver.findElement(login.sectionAccountForLoggedUser).isDisplayed(),
                 "Section Account is not displayed");
         softAssert.assertAll();
 
