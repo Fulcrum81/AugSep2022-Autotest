@@ -41,26 +41,39 @@ public class LogInForm {
         assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(logotypeImg)).isDisplayed());
     }
 
-    public void successAuthorizationMessageAfterLoggedInIsDisplayed() {
-        assertTrue(driver.findElement(resultMessageSuccess).getText().contains(expectedResultMessageSuccessText),
-                "Text message about success authorization is wrong");
+    public boolean successAuthorizationMessageAfterLoggedInIsDisplayed() {
+        if (driver.findElement(resultMessageSuccess).getText().contains(expectedResultMessageSuccessText) == true) {
+            return true;
+        } else
+            return false;
     }
 
-    public void sectionAccountForLoggedUserIsDisplayed() {
-        assertTrue(driver.findElement(sectionAccountForLoggedUser).isDisplayed(),
-                "Section Account is not displayed");
+    public boolean sectionAccountForLoggedUserIsDisplayed() {
+        if (driver.findElement(sectionAccountForLoggedUser).isDisplayed() == true) {
+            return true;
+        } else
+            return false;
     }
 
-    public void loginFormIsDisplayed() {
-        assertTrue(driver.findElement(loginForm).isDisplayed(), "LogIn Form is not displayed");
+    public boolean loginFormIsDisplayed() {
+        if (driver.findElement(loginForm).isDisplayed() == true) {
+            return true;
+        } else
+            return false;
     }
 
-    public void inputEmailFieldIsDisplayed() {
-        assertTrue(driver.findElement(inputEmail).isDisplayed(), "Input Email field is not displayed");
+    public boolean inputEmailFieldIsDisplayed() {
+        if (driver.findElement(inputEmail).isDisplayed() == true) {
+            return true;
+        } else
+            return false;
     }
 
-    public void inputPasswordFieldIsDisplayed() {
-        assertTrue(driver.findElement(inputPassword).isDisplayed(), "Password field is not displayed");
+    public boolean inputPasswordFieldIsDisplayed() {
+        if (driver.findElement(inputPassword).isDisplayed() == true) {
+            return true;
+        } else
+            return false;
     }
 
     public void rememberMeButtonClick() {

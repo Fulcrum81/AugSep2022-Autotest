@@ -2,6 +2,9 @@ package mavenizer.objectPO;
 
 
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+import static org.testng.Assert.assertTrue;
 
 public class LoginTest extends TestBaseLogin {
 
@@ -10,7 +13,7 @@ public class LoginTest extends TestBaseLogin {
         LogInForm login = new LogInForm(driver);
         driver.get(login.URL_MAIN_PAGE);
         login.waitForPageLoadMethod();
-        login.loginFormIsDisplayed();
+        assertTrue(login.loginFormIsDisplayed(), "LogIn Form is not displayed");
     }
 
     @Test
@@ -18,8 +21,10 @@ public class LoginTest extends TestBaseLogin {
         LogInForm login = new LogInForm(driver);
         driver.get(login.URL_MAIN_PAGE);
         login.waitForPageLoadMethod();
-        login.inputEmailFieldIsDisplayed();
-        login.inputPasswordFieldIsDisplayed();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(login.inputEmailFieldIsDisplayed(), "Input Email field is not displayed");
+        softAssert.assertTrue(login.inputPasswordFieldIsDisplayed(), "Password field is not displayed");
+        softAssert.assertAll();
     }
 
     @Test(dataProvider = "ValidCredentials", dataProviderClass = DataProviders.class)
@@ -28,8 +33,12 @@ public class LoginTest extends TestBaseLogin {
         driver.get(login.URL_MAIN_PAGE);
         login.attemptToLogIn(email, password);
         login.waitForPageLoadMethod();
-        login.successAuthorizationMessageAfterLoggedInIsDisplayed();
-        login.sectionAccountForLoggedUserIsDisplayed();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(login.successAuthorizationMessageAfterLoggedInIsDisplayed(),
+                "Text message about success authorization is wrong");
+        softAssert.assertTrue(login.sectionAccountForLoggedUserIsDisplayed(),
+                "Section Account is not displayed");
+        softAssert.assertAll();
     }
 
     @Test (dataProvider = "ValidCredentials", dataProviderClass = DataProviders.class)
@@ -39,8 +48,12 @@ public class LoginTest extends TestBaseLogin {
         login.rememberMeButtonClick();
         login.attemptToLogIn(email, password);
         login.waitForPageLoadMethod();
-        login.successAuthorizationMessageAfterLoggedInIsDisplayed();
-        login.sectionAccountForLoggedUserIsDisplayed();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(login.successAuthorizationMessageAfterLoggedInIsDisplayed(),
+                "Text message about success authorization is wrong");
+        softAssert.assertTrue(login.sectionAccountForLoggedUserIsDisplayed(),
+                "Section Account is not displayed");
+        softAssert.assertAll();
     }
 
 }
