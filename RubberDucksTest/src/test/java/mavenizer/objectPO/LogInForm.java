@@ -42,38 +42,24 @@ public class LogInForm {
     }
 
     public boolean successAuthorizationMessageAfterLoggedInIsDisplayed() {
-        if (driver.findElement(resultMessageSuccess).getText().contains(expectedResultMessageSuccessText) == true) {
-            return true;
-        } else
-            return false;
+        return driver.findElement(resultMessageSuccess).getText().contains(expectedResultMessageSuccessText);
     }
 
     public boolean sectionAccountForLoggedUserIsDisplayed() {
-        if (driver.findElement(sectionAccountForLoggedUser).isDisplayed() == true) {
-            return true;
-        } else
-            return false;
+        return driver.findElement(sectionAccountForLoggedUser).isDisplayed();
     }
 
     public boolean loginFormIsDisplayed() {
-        if (driver.findElement(loginForm).isDisplayed() == true) {
-            return true;
-        } else
-            return false;
+        return driver.findElement(loginForm).isDisplayed();
+
     }
 
     public boolean inputEmailFieldIsDisplayed() {
-        if (driver.findElement(inputEmail).isDisplayed() == true) {
-            return true;
-        } else
-            return false;
+        return driver.findElement(inputEmail).isDisplayed();
     }
 
     public boolean inputPasswordFieldIsDisplayed() {
-        if (driver.findElement(inputPassword).isDisplayed() == true) {
-            return true;
-        } else
-            return false;
+        return driver.findElement(inputPassword).isDisplayed();
     }
 
     public void rememberMeButtonClick() {
