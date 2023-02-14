@@ -30,8 +30,8 @@ public class TestBase {
                 driver = new ChromeDriver();
                 break;
         }
-        driver.manage().window().fullscreen();
         driver.get(baseURL);
+        driver.manage().window().maximize();
     }
 
     @AfterMethod
